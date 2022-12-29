@@ -12,7 +12,7 @@ $ sudo apt-get install tr
 
 
 ```bash
-$ git clone
+$ git clone https://github.com/techghoshal/ChatGPT
 $ cd gpt
 ```
     
