@@ -9,7 +9,7 @@ do
     mod=${chat// /+}
     echo
     #API KEY
-    OPENAI_API_KEY="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"
+    OPENAI_API_KEY="API_KEY"
     #API request
     res=$(curl https://api.openai.com/v1/completions \
         -H "Content-Type: application/json" \
