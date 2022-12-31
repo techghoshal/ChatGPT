@@ -24,24 +24,27 @@ do
   "presence_penalty": 0.0,
   "stop": ["\n"]
     }' -s)
+    ##Filter JSON data
     #Fetching finish_reason
     fReason=$(echo $res | jq '.choices' | tr -d "[" | tr -d "]" | jq '.finish_reason' | tr -d '"')
     #Checking on text that the text is empty or not empty
     empty=$(echo $res | jq '.choices' | tr -d "[" | tr -d "]" | jq '.text')
     #check error
     error=$(echo $res |  grep error | cut -d " " -f 2 | tr -d '"' | tr -d ":" )
-    
+
+    #Check error condition
     if [ "$error" == "error" ]
     then
         echo " 🤖️ Somthing went Worng! Please try again "
         echo
         echo $res | tr -d "{","}"
-        #Checking on text that the text is empty or not empty
+        #Check text vlaue is empty or not empty condition
     elif [ "$empty" == '""' ]
     then
         echo ' 🤖️ Somthing went Worng! AI did not reply [ text":"_blank" ] '
         echo
         echo $res
+    #Check fReason condition 
     elif [ "$fReason" == "stop" ]
     then
         ans=$(echo $res | jq '.choices' | tr -d "[" | tr -d "]" | jq '.text' | tr -d '"')
