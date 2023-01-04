@@ -8,7 +8,7 @@ do
     read -p " 🧒️  " chat
     mod=${chat// /+}
     echo
-    #API KEY
+    #SET API KEY
     OPENAI_API_KEY="API_KEY"
     #API request
     res=$(curl https://api.openai.com/v1/completions \
@@ -31,7 +31,7 @@ do
     empty=$(echo $res | jq '.choices' | tr -d "[" | tr -d "]" | jq '.text')
     #check error
     error=$(echo $res |  grep error | cut -d " " -f 2 | tr -d '"' | tr -d ":" )
-
+    
     #Check error condition
     if [ "$error" == "error" ]
     then
