@@ -34,7 +34,7 @@ $ ./gpt
 
 For support, [SUBSCRIBE](https://www.youtube.com/@techghoshal) to my YouTube channel.
 
-## *note
+## Note
 
 This tool is ok for basic use in your terminal but the web interface is better for advanced uses.
 
