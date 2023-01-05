@@ -5,7 +5,6 @@
 
 ```bash
 $ sudo apt-get install jq
-$ sudo apt-get install tr
 ```
     
 ## Installation
