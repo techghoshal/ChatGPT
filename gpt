@@ -6,7 +6,115 @@ while true;
 do
     echo
     read -p " 🧒️  " chat
-    mod=${chat// /+}
+    #encode special characters
+    n="${#chat}"
+    mod=$chat
+    i=0
+    while (( i<=$n ));
+    do
+        char="${chat:$i:1}"
+        
+        if [ "$char" == " " ]
+        then
+            mod=${mod// /%20}
+        elif [ "$char" == "!" ]
+        then
+            mod=${mod//!/%21}
+        elif [ "$char" == '"' ]
+        then
+            mod=${mod//'"'/%22}
+        elif [ "$char" == "#" ]
+        then
+            mod=${mod//#/%23}
+        elif [ "$char" == "$" ]
+        then
+            mod=${mod//"$"/%24}
+        elif [ "$char" == "%" ]
+        then
+            mod=${mod//"%"/%25}
+        elif [ "$char" == "&" ]
+        then
+            mod=${mod//"&"/%26}
+        elif [ "$char" == "'" ]
+        then
+            mod=${mod//"'"/%27}
+        elif [ "$char" == "(" ]
+        then
+            mod=${mod//"("/%28}
+        elif [ "$char" == ")" ]
+        then
+            mod=${mod//")"/%29}
+        elif [ "$char" == "+" ]
+        then
+            mod=${mod//"+"/%2B}
+        elif [ "$char" == "," ]
+        then
+            mod=${mod//","/%2C}
+        elif [ "$char" == "-" ]
+        then
+            mod=${mod//"-"/%2D}
+        elif [ "$char" == "." ]
+        then
+            mod=${mod//"."/%2E}
+        elif [ "$char" == ":" ]
+        then
+            mod=${mod//":"/%3A}
+        elif [ "$char" == ";" ]
+        then
+            mod=${mod//";"/%3B}
+        elif [ "$char" == "<" ]
+        then
+            mod=${mod//"<"/%3C}
+        elif [ "$char" == "=" ]
+        then
+            mod=${mod//"="/%3D}
+        elif [ "$char" == ">" ]
+        then
+            mod=${mod//">"/%3E}
+        elif [ "$char" == "?" ]
+        then
+            mod=${mod//"?"/%3F}
+        elif [ "$char" == "@" ]
+        then
+            mod=${mod//"@"/%40}
+        elif [ "$char" == "<" ]
+        then
+            mod=${mod//</%3C}
+        elif [ "$char" == "[" ]
+        then
+            mod=${mod//"["/%5B}
+        elif [ "$char" == '\' ]
+        then
+            mod=${mod//'\'/%5C}
+        elif [ "$char" == "]" ]
+        then
+            mod=${mod//"]"/%5D}
+        elif [ "$char" == "^" ]
+        then
+            mod=${mod//"^"/%5E}
+        elif [ "$char" == "_" ]
+        then
+            mod=${mod//"_"/%5F}
+        elif [ "$char" == '`' ]
+        then
+            mod=${mod//'`'/%60}
+        elif [ "$char" == "{" ]
+        then
+            mod=${mod//"{"/%7B}
+        elif [ "$char" == "|" ]
+        then
+            mod=${mod//"|"/%7C}
+        elif [ "$char" == "}" ]
+        then
+            mod=${mod//"}"/%7D}
+        elif [ "$char" == "~" ]
+        then
+            mod=${mod//"~"/%7E}
+        fi
+        
+        ((i++))
+    done
+    
     echo
     #SET API KEY
     OPENAI_API_KEY="API_KEY"
@@ -16,7 +124,7 @@ do
         -H "Authorization: Bearer $OPENAI_API_KEY" \
         -d '{
   "model": "text-davinci-003",
-  "prompt": "'+$mod+':\nA:",
+  "prompt": "'$mod'\nA:",
   "temperature": 0,
   "max_tokens": 100,
   "top_p": 1,
@@ -44,7 +152,7 @@ do
         echo ' 🤖️ Somthing went Worng! AI did not reply [ text":"_blank" ] '
         echo
         echo $res
-    #Check fReason condition 
+        #Check fReason condition
     elif [ "$fReason" == "stop" ]
     then
         ans=$(echo $res | jq '.choices' | tr -d "[" | tr -d "]" | jq '.text' | tr -d '"')
