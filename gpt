@@ -1,6 +1,9 @@
 #!/bin/bash
 ### Subscribe to my YouTube channel to support me => [ https://www.youtube.com/@techghoshal ] ###
 echo
+#SET API KEY
+OPENAI_API_KEY="API_KEY"
+
 echo " 🤖️ Hi there! How can I help you?"
 while true;
 do
@@ -116,8 +119,6 @@ do
     done
     
     echo
-    #SET API KEY
-    OPENAI_API_KEY="API_KEY"
     #API request
     res=$(curl https://api.openai.com/v1/completions \
         -H "Content-Type: application/json" \
